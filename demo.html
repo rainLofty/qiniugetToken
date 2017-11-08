@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<script src="core.js"></script>
+		<script src="cipher-core.js"></script>
+		<script src="enc-base64.js"></script>
+		<script src="hmac-sha1.js"></script>
+		<script src="ensha1.js"></script>
+		<script src="encodebase64.js"></script>
+		
+		<script type="text/javascript">
+		/*获取uptoken步骤
+		*1 确定上传策略
+		*2 将上传策略序列化成为json格式
+		*3 对json序列化后的上传策略进行URL安全的Base64编码,得到encoded
+		*4 用SecretKey对编码后的上传策略进行HMAC-SHA1加密，并且做URL安全的Base64编码,得到encoded_signed
+		*5 将 AccessKey、encode_signed 和 encoded 用 “:” 连接起来,得到UploadToken
+		*/
+		 var genUpToken = function(accessKey, secretKey, putPolicy) {
+
+		        //SETP 2
+		        var put_policy = JSON.stringify(putPolicy);
+
+		        var base64 = new Base64();
+		        var encoded = base64.encode(putPolicy);
+		        //SETP 4
+		        var hash = CryptoJS.HmacSHA1(encoded, secretKey);
+		        var encoded_signed = hash.toString(CryptoJS.enc.Base64);
+       			encoded_signed = encoded_signed.replace(/\//g,'_');
+
+		        //SETP 5
+		        var upload_token = accessKey + ":" + encoded_signed + ":" + encoded;
+		        return upload_token;
+		    };
+
+
+		    // var putPolicy = '{"scope":"仓库名字","deadline":1510165499}'; //putPolicy 上传策略
+	     //    var accesskey = '自己的accesskey';  //  AccessKey
+	     //    var secretKey = '自己的secretKey';  //  SecretKey
+	         var putPolicy = '{"scope":"liubai","deadline":1510165499}'; //上传策略 ，12小时后失效
+    var accesskey = 'OSOEvOfCcZEMwVK2Q4EaFaOVHsppb_b6AaUsGvqo';  //  AccessKey
+    var secretKey = 'x-XNjCDbzJPn2F__uZuChOBkAxtdjxMRQJIFw_pL'; 
+	    	var uptoken = genUpToken(accesskey,secretKey,putPolicy);
+	    	console.log(uptoken);
+		
+		</script>
+	</head>
+
+	<body>
+	
+
+	</body>
+</html>
