@@ -34,12 +34,10 @@
 		    };
 
 
-		    // var putPolicy = '{"scope":"仓库名字","deadline":1510165499}'; //putPolicy 上传策略
-	     //    var accesskey = '自己的accesskey';  //  AccessKey
-	     //    var secretKey = '自己的secretKey';  //  SecretKey
-	         var putPolicy = '{"scope":"liubai","deadline":1510165499}'; //上传策略 ，12小时后失效
-    var accesskey = 'OSOEvOfCcZEMwVK2Q4EaFaOVHsppb_b6AaUsGvqo';  //  AccessKey
-    var secretKey = 'x-XNjCDbzJPn2F__uZuChOBkAxtdjxMRQJIFw_pL'; 
+		     	var putPolicy = '{"scope":"仓库名字","deadline":1510165499}'; //putPolicy 上传策略
+	        	var accesskey = '自己的accesskey';  //  AccessKey
+	       		var secretKey = '自己的secretKey';  //  SecretKey
+	        
 	    	var uptoken = genUpToken(accesskey,secretKey,putPolicy);
 	    	console.log(uptoken);
 		
